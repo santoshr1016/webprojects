@@ -14,7 +14,7 @@ Application Factory.
 
 import os
 
-from flask import Flask, jsonify
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 """ Step 1: Creating Instances of Plugin Objects
@@ -30,29 +30,29 @@ def create_app(script_info=None):
     """
     app = Flask(__name__)
 
-    app_settings = os.getenv('APP_SETTINGS')
+    app_settings = os.getenv("APP_SETTINGS")
     app.config.from_object(app_settings)
 
     """ Step 3: Plugin Initialization
-    After the app object is created, we then "initialize" those plugins we mentioned earlier. 
+    After the app object is created, we then "initialize" those plugins we mentioned earlier.
     Initializing a plugin registers a plugin with our Flask app.
     """
     db.init_app(app)
 
     """  Step 4: The Application Context
-    This block is the lifeblood of our Flask app 
+    This block is the lifeblood of our Flask app
     it's essentially saying "here are all the pieces of my program."
     """
     # Register the Blueprints
     from project.api.ping import ping_blueprint
     from project.api.users import users_blueprint
+
     app.register_blueprint(ping_blueprint)
     app.register_blueprint(users_blueprint)
-
 
     # shell context for flask cli
     @app.shell_context_processor
     def ctx():
-        return {'app': app, 'db': db}
+        return {"app": app, "db": db}
 
     return app
