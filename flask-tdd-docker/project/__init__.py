@@ -1,5 +1,5 @@
 """
-Yes, our app is being created in application/__init__.py, so a file called wsgi.py
+Yes, our app is being created in application/__init__.py, so a file called manage.py
 simply imports this file to serve as our app gateway
 
 Derive our app's config from a class, file, or environment variables.
